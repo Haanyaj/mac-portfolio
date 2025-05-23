@@ -1,0 +1,66 @@
+.screen2d-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.screen2d {
+  width: min(1400px, 100%);
+  height: min(900px, 100vh - 40px);
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+}
+
+/* Effet de reflet sur l'écran */
+.screen2d::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.1) 0%,
+    rgba(255, 255, 255, 0.05) 30%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 1000;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .screen2d-container {
+    padding: 10px;
+  }
+  
+  .screen2d {
+    width: 100%;
+    height: calc(100vh - 20px);
+    border-radius: 8px;
+  }
+}
+
+@media (max-width: 768px) {
+  .screen2d-container {
+    padding: 0;
+  }
+  
+  .screen2d {
+    width: 100vw;
+    height: 100vh;
+    border-radius: 0;
+  }
+} 

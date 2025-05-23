@@ -1,0 +1,267 @@
+.macbook-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  perspective: 1200px;
+  padding: 2rem;
+  pointer-events: none;
+}
+
+.macbook {
+  position: relative;
+  transform-style: preserve-3d;
+  animation: floatMacBook 6s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes floatMacBook {
+  0%, 100% { 
+    transform: translateY(0px) rotateX(-15deg) rotateY(5deg);
+  }
+  50% { 
+    transform: translateY(-10px) rotateX(-15deg) rotateY(5deg);
+  }
+}
+
+.macbook-screen {
+  width: 800px;
+  height: 500px;
+  background: linear-gradient(145deg, #e6e6e6, #ffffff);
+  border-radius: 12px 12px 6px 6px;
+  position: relative;
+  transform-origin: bottom;
+  box-shadow: 
+    0 0 50px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  border: 2px solid #d1d1d1;
+  pointer-events: none;
+}
+
+.screen-bezel {
+  width: calc(100% - 40px);
+  height: calc(100% - 40px);
+  margin: 20px;
+  background: #000;
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 
+    inset 0 0 0 2px #333,
+    0 0 20px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+
+.screen-content {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  border-radius: 6px;
+  overflow: hidden;
+  position: relative;
+  pointer-events: auto;
+  z-index: 10;
+  cursor: auto;
+}
+
+/* Effet visuel subtil pour indiquer l'interactivité */
+.screen-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.03) 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.03) 75%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: -1;
+}
+
+.camera {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, #333 30%, #666 70%);
+  border-radius: 50%;
+  box-shadow: 
+    0 0 0 2px #999,
+    inset 0 1px 1px rgba(255, 255, 255, 0.3);
+  z-index: 5;
+  pointer-events: none;
+}
+
+.camera-dot {
+  width: 3px;
+  height: 3px;
+  background: radial-gradient(circle, #0066ff 0%, #004499 100%);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 3px rgba(0, 102, 255, 0.8);
+  animation: cameraGlow 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes cameraGlow {
+  0%, 100% { 
+    box-shadow: 0 0 3px rgba(0, 102, 255, 0.4);
+  }
+  50% { 
+    box-shadow: 0 0 8px rgba(0, 102, 255, 0.8);
+  }
+}
+
+.macbook-base {
+  width: 820px;
+  height: 580px;
+  background: linear-gradient(145deg, #e1e1e1, #f0f0f0);
+  border-radius: 20px 20px 8px 8px;
+  position: relative;
+  transform: 
+    translateY(-20px) 
+    rotateX(85deg) 
+    translateZ(-10px);
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  border: 2px solid #d1d1d1;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.keyboard {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  right: 40px;
+  height: 360px;
+  background: linear-gradient(145deg, #f8f8f8, #e8e8e8);
+  border-radius: 8px;
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.1),
+    0 1px 0 rgba(255, 255, 255, 0.8);
+  pointer-events: none;
+}
+
+.keyboard-keys {
+  width: 100%;
+  height: 100%;
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 18px,
+      rgba(0, 0, 0, 0.05) 18px,
+      rgba(0, 0, 0, 0.05) 20px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 18px,
+      rgba(0, 0, 0, 0.05) 18px,
+      rgba(0, 0, 0, 0.05) 20px
+    );
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+.trackpad {
+  position: absolute;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 180px;
+  height: 120px;
+  background: linear-gradient(145deg, #f0f0f0, #e0e0e0);
+  border-radius: 12px;
+  box-shadow: 
+    inset 0 2px 4px rgba(0, 0, 0, 0.1),
+    0 1px 0 rgba(255, 255, 255, 0.8);
+  border: 1px solid #d0d0d0;
+  pointer-events: none;
+}
+
+.macbook-shadow {
+  position: absolute;
+  bottom: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 200px;
+  background: radial-gradient(
+    ellipse,
+    rgba(0, 0, 0, 0.3) 0%,
+    rgba(0, 0, 0, 0.1) 50%,
+    transparent 100%
+  );
+  border-radius: 50%;
+  filter: blur(20px);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .macbook-screen {
+    width: 600px;
+    height: 375px;
+  }
+  
+  .macbook-base {
+    width: 620px;
+    height: 435px;
+  }
+  
+  .keyboard {
+    height: 270px;
+  }
+  
+  .trackpad {
+    width: 135px;
+    height: 90px;
+    bottom: 45px;
+  }
+}
+
+@media (max-width: 768px) {
+  .macbook-screen {
+    width: 480px;
+    height: 300px;
+  }
+  
+  .macbook-base {
+    width: 500px;
+    height: 350px;
+  }
+  
+  .keyboard {
+    height: 200px;
+    top: 30px;
+    left: 30px;
+    right: 30px;
+  }
+  
+  .trackpad {
+    width: 108px;
+    height: 72px;
+    bottom: 36px;
+  }
+  
+  .macbook-container {
+    padding: 1rem;
+  }
+} 

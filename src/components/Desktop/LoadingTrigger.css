@@ -1,0 +1,80 @@
+.loading-trigger {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.restart-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
+  cursor: pointer;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #333;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.restart-button:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+}
+
+.restart-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.apple-icon {
+  width: 16px;
+  height: 16px;
+  filter: brightness(0) saturate(100%);
+}
+
+.restart-button span {
+  white-space: nowrap;
+}
+
+/* Animation d'apparition */
+.loading-trigger {
+  opacity: 0;
+  animation: fadeInSlide 0.8s ease-out 1s forwards;
+}
+
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .loading-trigger {
+    top: 15px;
+    right: 15px;
+  }
+  
+  .restart-button {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  
+  .apple-icon {
+    width: 14px;
+    height: 14px;
+  }
+} 
