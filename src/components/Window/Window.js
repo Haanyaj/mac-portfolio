@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { personalInfo, projects, experiences, skills, services } from '../../data/portfolio';
 import './Window.css';
 
-const Window = ({ appId, zIndex, onClose, onMinimize, onFocus }) => {
+const Window = ({ appId, zIndex, onClose, onMinimize, onFocus, openApp }) => {
   const [position, setPosition] = useState({ 
     x: Math.random() * 200 + 50, 
     y: Math.random() * 100 + 50 
@@ -13,6 +13,9 @@ const Window = ({ appId, zIndex, onClose, onMinimize, onFocus }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [windowState, setWindowState] = useState('entering'); // 'entering', 'ready'
   const [hasAnimated, setHasAnimated] = useState(false);
+  const [currentPath, setCurrentPath] = useState(['Portfolio']);
+  const [viewMode, setViewMode] = useState('list');
+  const [searchQuery, setSearchQuery] = useState('');
   const windowRef = useRef(null);
 
   // Gérer l'animation d'entrée - une seule fois
@@ -88,6 +91,29 @@ const Window = ({ appId, zIndex, onClose, onMinimize, onFocus }) => {
       };
     }
   }, [isDragging, handleMouseMove, handleMouseUp]);
+
+  const handleFinderItemClick = (item) => {
+    switch(item) {
+      case 'about':
+      case 'projects':
+      case 'experience':
+      case 'skills':
+      case 'contact':
+        // Fermer la fenêtre finder actuelle
+        onClose();
+        // Ouvrir la nouvelle fenêtre
+        openApp(item);
+        break;
+      default:
+        if (item.endsWith('.pdf')) {
+          window.open(personalInfo.cvUrl, '_blank');
+        }
+    }
+  };
+
+  const handleSidebarItemClick = (item) => {
+    setCurrentPath(['Portfolio', item]);
+  };
 
   const getWindowContent = () => {
     switch (appId) {
@@ -290,30 +316,62 @@ const Window = ({ appId, zIndex, onClose, onMinimize, onFocus }) => {
       case 'finder':
         return (
           <div className="window-content finder-content">
-            <h2>Portfolio - Finder</h2>
-            <div className="finder-sidebar">
-              <div className="sidebar-section">
-                <h3>Favoris</h3>
-                <ul>
-                  <li>📁 Bureau</li>
-                  <li>📁 Documents</li>
-                  <li>💼 Projets</li>
-                  <li>🏢 Expérience</li>
-                </ul>
+            <div className="finder-toolbar">
+              <div className="finder-view-options">
+                <button 
+                  className={`view-button ${viewMode === 'list' ? 'active' : ''}`}
+                  onClick={() => setViewMode('list')}
+                >
+                  <span className="view-icon">📋</span>
+                  <span>Liste</span>
+                </button>
+                <button 
+                  className={`view-button ${viewMode === 'grid' ? 'active' : ''}`}
+                  onClick={() => setViewMode('grid')}
+                >
+                  <span className="view-icon">📁</span>
+                  <span>Grille</span>
+                </button>
               </div>
             </div>
-            <div className="finder-main">
-              <div className="folder" onClick={() => window.open('#about')}>
-                <span className="folder-icon">👨‍💻</span>
-                <span>À Propos</span>
-              </div>
-              <div className="folder">
-                <span className="folder-icon">💼</span>
-                <span>Projets</span>
-              </div>
-              <div className="folder">
-                <span className="folder-icon">🏢</span>
-                <span>Expérience</span>
+            
+            <div className="finder-container">
+              <div className={`finder-items ${viewMode}`}>
+                <div className="finder-item" onClick={() => handleFinderItemClick('about')}>
+                  <span className="item-icon">👨‍💻</span>
+                  <span className="item-name">À Propos</span>
+                  <span className="item-info">Informations personnelles</span>
+                </div>
+                
+                <div className="finder-item" onClick={() => handleFinderItemClick('projects')}>
+                  <span className="item-icon">💼</span>
+                  <span className="item-name">Projets</span>
+                  <span className="item-info">{projects.length} projets</span>
+                </div>
+                
+                <div className="finder-item" onClick={() => handleFinderItemClick('experience')}>
+                  <span className="item-icon">🏢</span>
+                  <span className="item-name">Expérience</span>
+                  <span className="item-info">{experiences.length} expériences</span>
+                </div>
+                
+                <div className="finder-item" onClick={() => handleFinderItemClick('skills')}>
+                  <span className="item-icon">🔧</span>
+                  <span className="item-name">Compétences</span>
+                  <span className="item-info">{skills.length} compétences</span>
+                </div>
+                
+                <div className="finder-item" onClick={() => handleFinderItemClick('contact')}>
+                  <span className="item-icon">📧</span>
+                  <span className="item-name">Contact</span>
+                  <span className="item-info">Me contacter</span>
+                </div>
+                
+                <div className="finder-item" onClick={() => window.open(personalInfo.cvUrl, '_blank')}>
+                  <span className="item-icon">📄</span>
+                  <span className="item-name">CV.pdf</span>
+                  <span className="item-info">Curriculum Vitae</span>
+                </div>
               </div>
             </div>
           </div>

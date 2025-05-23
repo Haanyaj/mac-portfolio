@@ -295,6 +295,16 @@ const Desktop = () => {
             zIndex={window.zIndex}
             onClose={() => closeApp(window.id)}
             onMinimize={() => minimizeApp(window.id)}
+            onFocus={(appId) => {
+              setOpenWindows(windows => 
+                windows.map(window => 
+                  window.id === appId 
+                    ? { ...window, zIndex: Date.now() }
+                    : window
+                )
+              );
+            }}
+            openApp={openApp}
           />
         )
       ))}
