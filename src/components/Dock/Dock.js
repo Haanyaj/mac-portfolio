@@ -11,17 +11,9 @@ const Dock = ({ openWindows, onAppClick, onAppRestore }) => {
     { 
       id: 'finder', 
       name: 'Finder', 
-      icon: '/icons/finder.png', 
+      icon: '/icons/Finder.png', 
       color: '#007AFF',
       action: 'app',
-      useImage: true
-    },
-    { 
-      id: 'launchpad', 
-      name: 'Launchpad', 
-      icon: '/icons/launchpad.svg', 
-      color: '#505050',
-      action: 'special',
       useImage: true
     },
     { 
@@ -52,7 +44,7 @@ const Dock = ({ openWindows, onAppClick, onAppRestore }) => {
     { 
       id: 'maps', 
       name: 'Plans', 
-      icon: '/icons/maps.png', 
+      icon: '/icons/plans.svg', 
       color: '#8CC152',
       action: 'special',
       useImage: true
@@ -100,7 +92,7 @@ const Dock = ({ openWindows, onAppClick, onAppRestore }) => {
     { 
       id: 'music', 
       name: 'Musique', 
-      icon: '/icons/music.png', 
+      icon: '/icons/musique.png', 
       color: '#FA2D48',
       action: 'url',
       url: 'https://music.apple.com',
@@ -109,19 +101,10 @@ const Dock = ({ openWindows, onAppClick, onAppRestore }) => {
     { 
       id: 'appletv', 
       name: 'Apple TV', 
-      icon: '/icons/appletv.png', 
+      icon: '/icons/apple-tv.svg', 
       color: '#1C1C1E',
       action: 'url',
       url: 'https://tv.apple.com',
-      useImage: true
-    },
-    { 
-      id: 'spotify', 
-      name: 'Spotify', 
-      icon: '/icons/spotify.png', 
-      color: '#1DB954',
-      action: 'url',
-      url: 'https://open.spotify.com',
       useImage: true
     },
     { 

@@ -1,139 +1,136 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Send, Github, Linkedin, Twitter } from 'lucide-react';
+import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { personalInfo } from '../../data/portfolio';
 import SectionHeader from '../common/SectionHeader/SectionHeader';
 import './Contact.css';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
 
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Message envoyé ! Je vous répondrai bientôt.');
-    setFormData({ name: '', email: '', message: '' });
-  };
-
-  const handleInputChange = (e) => {
+  const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Logique d'envoi du formulaire à implémenter
+    console.log('Form data:', formData);
+  };
+
   return (
-    <section id="contact" className="contact-section">
-      <div className="container">
+    <section id="contact" className="macos-section">
+      <div className="macos-section-header">
+        <h2>Contact</h2>
+      </div>
+
+      <div className="macos-section-content">
         <SectionHeader 
           badge="Contact"
-          title="Travaillons Ensemble"
-          subtitle="Vous avez un projet en tête ? Discutons-en !"
+          title="Parlons de votre projet"
+          subtitle="N'hésitez pas à me contacter pour discuter de vos idées"
         />
 
         <div className="contact-content">
-          <motion.div 
-            className="contact-info"
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <div className="contact-item">
-              <Mail className="contact-icon" />
-              <div>
-                <h4>Email</h4>
-                <p>{personalInfo.email}</p>
-              </div>
-            </div>
-            <div className="contact-item">
-              <Phone className="contact-icon" />
-              <div>
-                <h4>Téléphone</h4>
-                <p>{personalInfo.phone}</p>
-              </div>
-            </div>
-            <div className="contact-item">
-              <MapPin className="contact-icon" />
-              <div>
-                <h4>Localisation</h4>
-                <p>{personalInfo.location}</p>
-              </div>
-            </div>
+          <div className="contact-info">
+            <motion.div 
+              className="macos-card contact-item"
+              whileHover={{ y: -5 }}
+            >
+              <Mail size={24} />
+              <h3>Email</h3>
+              <p>{personalInfo.email}</p>
+            </motion.div>
 
-            <div className="social-links">
-              <motion.a 
-                href={personalInfo.socialLinks.github}
-                className="social-link"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Github size={24} />
-              </motion.a>
-              <motion.a 
-                href={personalInfo.socialLinks.linkedin}
-                className="social-link"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Linkedin size={24} />
-              </motion.a>
-              <motion.a 
-                href={personalInfo.socialLinks.twitter}
-                className="social-link"
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.9 }}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Twitter size={24} />
-              </motion.a>
-            </div>
-          </motion.div>
+            <motion.div 
+              className="macos-card contact-item"
+              whileHover={{ y: -5 }}
+            >
+              <Phone size={24} />
+              <h3>Téléphone</h3>
+              <p>{personalInfo.phone}</p>
+            </motion.div>
+
+            <motion.div 
+              className="macos-card contact-item"
+              whileHover={{ y: -5 }}
+            >
+              <MapPin size={24} />
+              <h3>Localisation</h3>
+              <p>{personalInfo.location}</p>
+            </motion.div>
+          </div>
 
           <motion.form 
-            className="contact-form"
-            onSubmit={handleFormSubmit}
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            className="macos-card contact-form"
+            onSubmit={handleSubmit}
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
             <div className="form-group">
+              <label htmlFor="name">Nom</label>
               <input
                 type="text"
+                id="name"
                 name="name"
-                placeholder="Votre nom"
+                className="macos-input"
                 value={formData.name}
-                onChange={handleInputChange}
+                onChange={handleChange}
                 required
               />
             </div>
+
             <div className="form-group">
+              <label htmlFor="email">Email</label>
               <input
                 type="email"
+                id="email"
                 name="email"
-                placeholder="Votre email"
+                className="macos-input"
                 value={formData.email}
-                onChange={handleInputChange}
+                onChange={handleChange}
                 required
               />
             </div>
+
             <div className="form-group">
-              <textarea
-                name="message"
-                placeholder="Votre message"
-                rows="5"
-                value={formData.message}
-                onChange={handleInputChange}
+              <label htmlFor="subject">Sujet</label>
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                className="macos-input"
+                value={formData.subject}
+                onChange={handleChange}
                 required
+              />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                className="macos-input"
+                value={formData.message}
+                onChange={handleChange}
+                required
+                rows="5"
               ></textarea>
             </div>
-            <motion.button 
+
+            <motion.button
               type="submit"
-              className="submit-button"
+              className="macos-button submit-button"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

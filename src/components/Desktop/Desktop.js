@@ -69,7 +69,7 @@ const Desktop = () => {
       { 
         id: 'finder', 
         label: 'Finder', 
-        src: '/icons/finder.svg',
+        src: '/icons/Finder.png',
         useImage: true,
         type: 'finder-icon',
         x: 150,

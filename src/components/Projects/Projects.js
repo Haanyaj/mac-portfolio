@@ -7,8 +7,12 @@ import './Projects.css';
 
 const Projects = ({ activeProject, toggleProject }) => {
   return (
-    <section id="projects" className="projects-section">
-      <div className="container">
+    <section id="projects" className="macos-section">
+      <div className="macos-section-header">
+        <h2>Projets</h2>
+      </div>
+
+      <div className="macos-section-content">
         <SectionHeader 
           badge="Portfolio"
           title="Mes Réalisations"
@@ -19,7 +23,7 @@ const Projects = ({ activeProject, toggleProject }) => {
           {projects.map((project, index) => (
             <motion.div
               key={project.id}
-              className="project-card"
+              className="macos-card project-card"
               initial={{ opacity: 0, y: 50 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.2 }}
@@ -31,7 +35,7 @@ const Projects = ({ activeProject, toggleProject }) => {
                 <div className="project-overlay">
                   <motion.a 
                     href={project.liveUrl}
-                    className="project-link"
+                    className="macos-button project-link"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     target="_blank"
@@ -41,7 +45,7 @@ const Projects = ({ activeProject, toggleProject }) => {
                   </motion.a>
                   <motion.a 
                     href={project.githubUrl}
-                    className="project-link"
+                    className="macos-button project-link"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     target="_blank"
@@ -71,7 +75,7 @@ const Projects = ({ activeProject, toggleProject }) => {
                 </div>
                 
                 <motion.button
-                  className="project-toggle"
+                  className="macos-button project-toggle"
                   onClick={() => toggleProject(project.id)}
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}

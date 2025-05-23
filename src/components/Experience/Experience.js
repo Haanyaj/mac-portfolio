@@ -1,46 +1,64 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { Briefcase, Calendar, MapPin } from 'lucide-react';
 import { experiences } from '../../data/portfolio';
 import SectionHeader from '../common/SectionHeader/SectionHeader';
+import './Experience.css';
 
 const Experience = () => {
   return (
-    <section id="experience" className="experience-section">
-      <div className="container">
+    <section id="experience" className="macos-section">
+      <div className="macos-section-header">
+        <h2>Expérience</h2>
+      </div>
+
+      <div className="macos-section-content">
         <SectionHeader 
           badge="Parcours"
-          title="Expérience Professionnelle"
+          title="Mon Expérience Professionnelle"
+          subtitle="Découvrez mon parcours et mes réalisations"
         />
-        
+
         <div className="experience-timeline">
           {experiences.map((exp, index) => (
-            <div 
-              key={exp.id} 
+            <motion.div
+              key={exp.id}
               className={`experience-item ${index % 2 === 0 ? 'left' : 'right'}`}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.2 }}
+              viewport={{ once: true }}
             >
-              <div className="experience-content">
+              <div className="macos-card experience-content">
                 <div className="experience-header">
-                  <h3 className="experience-title">{exp.title}</h3>
-                  <h4 className="experience-company">{exp.company}</h4>
-                  <span className="experience-period">{exp.period}</span>
+                  <div className="experience-title">
+                    <h3>{exp.title}</h3>
+                    <span className="experience-company">{exp.company}</span>
+                  </div>
+                  <div className="experience-period">
+                    <Calendar size={16} />
+                    <span>{exp.period}</span>
+                  </div>
                 </div>
-                
-                <p className="experience-description">
-                  {exp.description}
-                </p>
-                
+
+                <div className="experience-location">
+                  <MapPin size={16} />
+                  <span>{exp.location}</span>
+                </div>
+
+                <p className="experience-description">{exp.description}</p>
+
                 <div className="experience-technologies">
-                  {exp.technologies.map((tech, techIndex) => (
-                    <span key={techIndex} className="tech-tag">
-                      {tech}
-                    </span>
+                  {exp.technologies.map((tech, i) => (
+                    <span key={i} className="tech-tag">{tech}</span>
                   ))}
                 </div>
+
+                <div className="experience-marker">
+                  <Briefcase size={20} />
+                </div>
               </div>
-              
-              <div className="experience-marker">
-                <div className="marker-dot"></div>
-              </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

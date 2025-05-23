@@ -86,8 +86,8 @@ const Hero = ({ scrollToSection }) => {
             <span className="stat-label">Années d'expérience</span>
           </div>
           <div className="stat">
-            <span className="stat-number">{personalInfo.stats.happyClients}</span>
-            <span className="stat-label">Clients satisfaits</span>
+            <span className="stat-number">COUCOU</span>
+            <span className="stat-label">Clients coucou</span>
           </div>
         </motion.div>
       </motion.div>
