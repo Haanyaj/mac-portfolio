@@ -12,19 +12,26 @@ const Window = ({ appId, zIndex, onClose, onMinimize, onFocus }) => {
   const [activeTab, setActiveTab] = useState(0);
   const [selectedProject, setSelectedProject] = useState(null);
   const [windowState, setWindowState] = useState('entering'); // 'entering', 'ready'
+  const [hasAnimated, setHasAnimated] = useState(false);
   const windowRef = useRef(null);
 
-  // Gérer l'animation d'entrée
+  // Gérer l'animation d'entrée - une seule fois
   useEffect(() => {
-    // Démarrer avec la classe d'animation
-    const timer1 = setTimeout(() => {
-      setWindowState('ready');
-    }, 250); // Durée de l'animation
+    if (!hasAnimated) {
+      // Démarrer avec la classe d'animation
+      const timer1 = setTimeout(() => {
+        setWindowState('ready');
+        setHasAnimated(true);
+      }, 250); // Durée de l'animation
 
-    return () => {
-      clearTimeout(timer1);
-    };
-  }, []);
+      return () => {
+        clearTimeout(timer1);
+      };
+    } else {
+      // Si déjà animé, passer directement à l'état ready
+      setWindowState('ready');
+    }
+  }, [hasAnimated]);
 
   const handleMouseDown = useCallback((e) => {
     if (e.target.closest('.window-controls')) return;
@@ -336,7 +343,7 @@ const Window = ({ appId, zIndex, onClose, onMinimize, onFocus }) => {
 
   return (
     <div 
-      className={`window ${appId}-window window-${windowState}`}
+      className={`window ${appId}-window ${hasAnimated ? 'window-ready' : `window-${windowState}`}`}
       style={{ 
         left: position.x, 
         top: position.y,
@@ -371,4 +378,4 @@ const Window = ({ appId, zIndex, onClose, onMinimize, onFocus }) => {
   );
 };
 
-export default Window; 
+export default Window;

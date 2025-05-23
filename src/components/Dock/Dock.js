@@ -74,9 +74,9 @@ const Dock = ({ openWindows, onAppClick, onAppRestore }) => {
       useImage: true
     },
     { 
-      id: 'calendar', 
-      name: 'Calendrier', 
-      icon: '/icons/calendar.png', 
+      id: 'calculator', 
+      name: 'calculator', 
+      icon: '/icons/calculator.svg', 
       color: '#FFFFFF',
       action: 'special',
       useImage: true
@@ -90,9 +90,9 @@ const Dock = ({ openWindows, onAppClick, onAppRestore }) => {
       useImage: true
     },
     { 
-      id: 'notes', 
-      name: 'Notes', 
-      icon: '/icons/notes.svg', 
+      id: 'reminders', 
+      name: 'reminders', 
+      icon: '/icons/reminders.svg', 
       color: '#FFE135',
       action: 'special',
       useImage: true
@@ -125,22 +125,6 @@ const Dock = ({ openWindows, onAppClick, onAppRestore }) => {
       useImage: true
     },
     { 
-      id: 'projects', 
-      name: 'Projets', 
-      icon: '💼', 
-      color: '#fa709a',
-      action: 'app',
-      useImage: false
-    },
-    { 
-      id: 'experience', 
-      name: 'Expérience', 
-      icon: '🏢', 
-      color: '#a8edea',
-      action: 'app',
-      useImage: false
-    },
-    { 
       id: 'appstore', 
       name: 'App Store', 
       icon: '/icons/app-store.svg', 
@@ -148,15 +132,7 @@ const Dock = ({ openWindows, onAppClick, onAppRestore }) => {
       action: 'special',
       useImage: true
     },
-    { 
-      id: 'linkedin', 
-      name: 'LinkedIn', 
-      icon: '/icons/linkedin.png',
-      color: '#0077B5',
-      action: 'url',
-      url: 'https://linkedin.com',
-      useImage: false
-    },
+  
     { 
       id: 'trash', 
       name: 'Corbeille', 
