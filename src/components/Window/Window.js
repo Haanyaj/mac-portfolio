@@ -21,6 +21,9 @@ const Window = ({ appId, zIndex, onClose, onMinimize, onFocus, openApp }) => {
   const [currentPath, setCurrentPath] = useState(['Portfolio']);
   const [viewMode, setViewMode] = useState('list');
   const [searchQuery, setSearchQuery] = useState('');
+  const [isMaximized, setIsMaximized] = useState(false);
+  const [originalPosition, setOriginalPosition] = useState(null);
+  const [originalSize, setOriginalSize] = useState(null);
   const windowRef = useRef(null);
 
   // Gérer l'animation d'entrée - une seule fois
@@ -43,6 +46,7 @@ const Window = ({ appId, zIndex, onClose, onMinimize, onFocus, openApp }) => {
 
   const handleMouseDown = useCallback((e) => {
     if (e.target.closest('.window-controls')) return;
+    if (isMaximized) return;
     
     // Gérer le focus de la fenêtre
     if (onFocus) {
@@ -54,7 +58,7 @@ const Window = ({ appId, zIndex, onClose, onMinimize, onFocus, openApp }) => {
       x: e.clientX - position.x,
       y: e.clientY - position.y
     });
-  }, [position, onFocus, appId]);
+  }, [position, onFocus, appId, isMaximized]);
 
   const handleMouseMove = useCallback((e) => {
     if (isDragging) {
@@ -217,13 +221,34 @@ const Window = ({ appId, zIndex, onClose, onMinimize, onFocus, openApp }) => {
     }
   };
 
+  const handleMaximize = useCallback(() => {
+    if (!isMaximized) {
+      // Sauvegarder la position et la taille actuelles
+      setOriginalPosition(position);
+      setOriginalSize({
+        width: windowRef.current.offsetWidth,
+        height: windowRef.current.offsetHeight
+      });
+      
+      // Maximiser la fenêtre
+      setPosition({ x: 0, y: 24 }); // 24px pour la barre de menu
+      setIsMaximized(true);
+    } else {
+      // Restaurer la position et la taille d'origine
+      setPosition(originalPosition);
+      setIsMaximized(false);
+    }
+  }, [isMaximized, position, originalPosition]);
+
   return (
     <div 
-      className={`window ${appId}-window ${hasAnimated ? 'window-ready' : `window-${windowState}`}`}
+      className={`window ${appId}-window ${hasAnimated ? 'window-ready' : `window-${windowState}`} ${isMaximized ? 'maximized' : ''}`}
       style={{ 
         left: position.x, 
         top: position.y,
-        zIndex: zIndex 
+        zIndex: zIndex,
+        width: isMaximized ? '100%' : '750px',
+        height: isMaximized ? 'calc(100vh - 24px)' : 'auto'
       }}
       ref={windowRef}
       onClick={handleWindowClick}
@@ -240,8 +265,8 @@ const Window = ({ appId, zIndex, onClose, onMinimize, onFocus, openApp }) => {
           <button className="control-button minimize" onClick={onMinimize}>
             <span>−</span>
           </button>
-          <button className="control-button maximize">
-            <span>□</span>
+          <button className="control-button maximize" onClick={handleMaximize}>
+            <span>{isMaximized ? '⧉' : '□'}</span>
           </button>
         </div>
         <div className="window-title">
