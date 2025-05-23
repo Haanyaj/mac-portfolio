@@ -187,6 +187,11 @@ const Desktop = () => {
     setContextMenu(null);
   };
 
+  const handleIconClick = (iconId) => {
+    openApp(iconId);
+    setSelectedIcon(null);
+  };
+
   const handleIconDoubleClick = (iconId) => {
     openApp(iconId);
     setSelectedIcon(null);
@@ -246,7 +251,7 @@ const Desktop = () => {
             isSelected={selectedIcon === icon.id}
             onMove={handleIconMove}
             onSelect={handleIconSelect}
-            onDoubleClick={handleIconDoubleClick}
+            onDoubleClick={handleIconClick}
           />
         ))}
       </div>
